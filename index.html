@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime-Go - Аниме Магазин</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-paper-plane"></i>
+                <span>Anime-Go</span>
+            </div>
+            <nav class="nav">
+                <a href="#catalog" class="nav-link">Каталог</a>
+                <a href="#blog" class="nav-link" onclick="showComingSoon('Блог')">Блог</a>
+                <a href="#wiki" class="nav-link" onclick="showComingSoon('Wiki')">Wiki</a>
+                <a href="#community" class="nav-link" onclick="showComingSoon('Сообщество')">Сообщество</a>
+            </nav>
+            <div class="header-icons">
+                <i class="fas fa-bars" onclick="toggleMobileMenu()" title="Меню"></i>
+                <div class="search-container">
+                    <i class="fas fa-search" onclick="toggleSearch()" title="Поиск"></i>
+                    <div class="search-dropdown" id="searchDropdown">
+                        <div class="search-input-container">
+                            <input type="text" id="searchInput" placeholder="Поиск товаров..." autocomplete="off">
+                            <button class="search-clear" id="searchClear" onclick="clearSearch()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="search-suggestions" id="searchSuggestions">
+                            <div class="search-suggestion-item" onclick="searchByCategory('cosplay')">
+                                <i class="fas fa-mask"></i>
+                                <span>Косплей</span>
+                            </div>
+                            <div class="search-suggestion-item" onclick="searchByCategory('toys')">
+                                <i class="fas fa-heart"></i>
+                                <span>Игрушки</span>
+                            </div>
+                            <div class="search-suggestion-item" onclick="searchByCategory('dakimakura')">
+                                <i class="fas fa-bed"></i>
+                                <span>Дакимакуры</span>
+                            </div>
+                            <div class="search-suggestion-item" onclick="searchByCategory('comics')">
+                                <i class="fas fa-book"></i>
+                                <span>Комиксы</span>
+                            </div>
+                        </div>
+                        <div class="search-results" id="searchResults">
+                            <!-- Результаты поиска будут здесь -->
+                        </div>
+                    </div>
+                </div>
+                <i class="fas fa-globe" onclick="showLanguageSelect()" title="Язык"></i>
+                <i class="fas fa-user" onclick="showLogin()" title="Вход"></i>
+                <i class="fas fa-cog" onclick="showSettings()" title="Настройки"></i>
+                <i class="fas fa-question" onclick="showHelp()" title="Помощь"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="welcome-text">
+                    <h1>Добро пожаловать на сайт Kita</h1>
+                    <p>Лучший магазин аниме товаров и косплея</p>
+                    <button class="cta-button">Начать покупки</button>
+                </div>
+                <div class="hero-character">
+                    <div class="character-container">
+                        <div class="character"></div>
+                        <div class="cherry-blossoms">
+                            <div class="blossom blossom-1"></div>
+                            <div class="blossom blossom-2"></div>
+                            <div class="blossom blossom-3"></div>
+                            <div class="blossom blossom-4"></div>
+                            <div class="blossom blossom-5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories" id="catalog">
+        <div class="container">
+            <h2>Наши категории</h2>
+            <div class="categories-grid">
+                <div class="category-item" data-category="cosplay">
+                    <i class="fas fa-mask"></i>
+                    <span>Косплей</span>
+                </div>
+                <div class="category-item" data-category="toys">
+                    <i class="fas fa-heart"></i>
+                    <span>Мягкие игрушки</span>
+                </div>
+                <div class="category-item" data-category="dakimakura">
+                    <i class="fas fa-bed"></i>
+                    <span>Дакимакуры</span>
+                </div>
+                <div class="category-item" data-category="stickers">
+                    <i class="fas fa-sticky-note"></i>
+                    <span>Стикеры</span>
+                </div>
+                <div class="category-item" data-category="comics">
+                    <i class="fas fa-book"></i>
+                    <span>Комиксы</span>
+                </div>
+                <div class="category-item" data-category="food">
+                    <i class="fas fa-utensils"></i>
+                    <span>Азиатские вкусности</span>
+                </div>
+                <div class="category-item" data-category="lenses">
+                    <i class="fas fa-eye"></i>
+                    <span>Цветные линзы</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Catalog -->
+    <section class="products-catalog">
+        <div class="container">
+            <h2>Каталог товаров</h2>
+            <div class="catalog-filters">
+                <button class="filter-btn active" data-filter="all">Все товары</button>
+                <button class="filter-btn" data-filter="cosplay">Косплей</button>
+                <button class="filter-btn" data-filter="toys">Игрушки</button>
+                <button class="filter-btn" data-filter="dakimakura">Дакимакуры</button>
+                <button class="filter-btn" data-filter="comics">Комиксы</button>
+                <button class="filter-btn" data-filter="stickers">Стикеры</button>
+                <button class="filter-btn" data-filter="food">Азиатские вкусности</button>
+                <button class="filter-btn" data-filter="lenses">Цветные линзы</button>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews">
+        <div class="container">
+            <h2>Отзывы наших клиентов</h2>
+            <div class="reviews-slider">
+                <div class="review-card active">
+                    <div class="review-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Отличный магазин! Быстрая доставка, качественные товары. Косплей костюм пришел точно в срок и идеально подошел!"</p>
+                        <div class="reviewer">
+                            <div class="avatar"></div>
+                            <div class="reviewer-info">
+                                <h4>Анна Смирнова</h4>
+                                <span>Москва</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Заказывал дакимакуру, качество превзошло все ожидания! Очень доволен покупкой и сервисом."</p>
+                        <div class="reviewer">
+                            <div class="avatar"></div>
+                            <div class="reviewer-info">
+                                <h4>Дмитрий Козлов</h4>
+                                <span>Санкт-Петербург</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Лучший аниме магазин в городе! Большой выбор, приятные цены, отзывчивая поддержка."</p>
+                        <div class="reviewer">
+                            <div class="avatar"></div>
+                            <div class="reviewer-info">
+                                <h4>Елена Петрова</h4>
+                                <span>Новосибирск</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-nav">
+                    <div class="nav-item" onclick="showFavorites()">
+                        <i class="fas fa-heart"></i>
+                        <span>Избранное</span>
+                    </div>
+                    <div class="nav-item" onclick="showLogin()">
+                        <i class="fas fa-user"></i>
+                        <span>Вход</span>
+                    </div>
+                    <div class="nav-item" id="cartButton">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span>Корзина</span>
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                    <div class="nav-item telegram-item" onclick="openTelegram()">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="#" onclick="showComingSoon('Pinterest')"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" onclick="showComingSoon('Instagram')"><i class="fab fa-instagram"></i></a>
+                    <a href="#" onclick="showComingSoon('Twitter')"><i class="fab fa-twitter"></i></a>
+                    <a href="#" onclick="showComingSoon('YouTube')"><i class="fab fa-youtube"></i></a>
+                    <a href="#" onclick="showComingSoon('Facebook')"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="close-btn">&times;</button>
+            <h3>Оставьте ваши контакты, мы вам сообщим в случае поступления товара.</h3>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">Согласен с <a href="#" class="terms-link">условиями работы сайта</a> и обработкой персональных данных</label>
+                </div>
+                <button type="submit" class="submit-btn">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay" id="cartModal">
+        <div class="modal cart-modal">
+            <button class="close-btn">&times;</button>
+            <h3>Корзина покупок</h3>
+            <div class="cart-content" id="cartContent">
+                <div class="empty-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>Ваша корзина пуста</p>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span>Итого: <span id="cartTotal">0</span> ₽</span>
+                </div>
+                <button class="checkout-btn">Оформить заказ</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
